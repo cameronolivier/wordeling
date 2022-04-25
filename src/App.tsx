@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { flatten } from 'ramda'
+import React from 'react'
+import styles from './App.module.scss'
+import Results from './components/Results'
+import RightPlaceSelect from './components/RightPlaceSelect'
+import WordleCard from './components/WordleCard'
+import { dictionary } from './constants'
+import SelectRemovedKeyboard from './components/SelectRemovedKeyboard'
+import { createWordsFromPatterns } from './utils'
 
+const allowed = ['E', 'P', 'A']
+const patterns = ['*L*T*']
+const words = createWordsFromPatterns(flatten([dictionary]))(allowed, patterns)
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.container}>
+      <WordleCard />
+      <h2>Select removed letters:</h2>
+      <SelectRemovedKeyboard />
+      <RightPlaceSelect />
+      <Results words={words} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

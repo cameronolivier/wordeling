@@ -1,0 +1,21 @@
+.container {}
+.card {}
+.row {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 8px;
+}
+.item {
+  border: 1px solid #ddd;
+  height: 48px;
+  width:48px;
+  margin-right: 2px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}

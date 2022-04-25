@@ -1,0 +1,18 @@
+.container {}
+.row{}
+.input {
+  border:1px solid #ddd;
+  padding: 8px;
+  width: 16px;
+  font-family: ".SF NS Mono", monospace;
+  text-transform: uppercase;
+  margin-right: 4px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+input:not(:placeholder-shown) {
+  background: lime;
+  color: darkgreen;
+}
