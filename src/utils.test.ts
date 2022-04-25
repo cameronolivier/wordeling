@@ -29,6 +29,18 @@ describe('utils', () => {
       ])
     })
   })
+  describe('isFirstLetterConsonant', () => {
+    it.each([
+      ['AAARD', false],
+      ['BAARD', true],
+      ['ZAARD', true],
+      ['DAARD', true],
+      ['EAARD', false]
+    ])('returns true if first letter is a consonant', (word, expected) => {
+      const result = SUT.isFirstLetterConsonant(word)
+      expect(result).toBe(expected)
+    })
+  })
   describe('createWordsFromPatterns', () => {
     it('should generate words from given patterns and allowed letters', () => {
       const allowed = ['A', 'R']

@@ -1,4 +1,15 @@
-import { flatten, map, pipe, replace, uniq, __, includes, filter } from 'ramda'
+import {
+  flatten,
+  map,
+  pipe,
+  replace,
+  uniq,
+  __,
+  includes,
+  filter,
+  complement
+} from 'ramda'
+import { consonants } from './constants'
 
 export const replacePlaceholderWithAllowedChar = (
   allowed: string[],
@@ -24,11 +35,15 @@ export const replaceAllPlaceholders = (
   return replaceAllPlaceholders(allowed, partiallyReplacedWords)
 }
 
+export const isFirstLetterConsonant = (word: string): boolean =>
+  word.split('').filter((x) => x === 'A').length > 1
+
 export const createWordsFromPatterns =
   (dictionary: string[]) => (allowed: string[], patterns: string[]) =>
     pipe(
       map((pattern: string) => replaceAllPlaceholders(allowed, pattern)),
       flatten,
       uniq,
-      filter(includes(__, dictionary))
+      filter(complement(isFirstLetterConsonant))
+      // filter(includes(__, dictionary))
     )(patterns)
