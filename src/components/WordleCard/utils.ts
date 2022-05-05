@@ -12,7 +12,7 @@ export const getKeyStateStyles = (
 }
 
 export const updateLetterState = (state: KeyState) =>
-  state === 2 ? 0 : state + 1
+  state === 3 ? 0 : state + 1
 
 export const handleKeySelect =
   (char: string) => (selected: KeysWithState[]) => {
@@ -52,7 +52,7 @@ export const updateCard =
     })
   }
 
-export const updateCardIndex = (index: CardIndex) => {
+export const increaseCardIndex = (index: CardIndex) => {
   const [row, item] = index
 
   if (item === 4) {
@@ -63,4 +63,17 @@ export const updateCardIndex = (index: CardIndex) => {
   }
 
   return [row, item + 1]
+}
+
+export const decreaseCardIndex = (index: CardIndex) => {
+  const [row, item] = index
+
+  if (item === 0) {
+    if (row === 0) {
+      return [0, 0]
+    }
+    return [row - 1, 4]
+  }
+
+  return [row, item - 1]
 }

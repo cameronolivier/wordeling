@@ -9,7 +9,6 @@ import {
   filter,
   complement
 } from 'ramda'
-import { consonants } from './constants'
 
 export const replacePlaceholderWithAllowedChar = (
   allowed: string[],
@@ -44,6 +43,6 @@ export const createWordsFromPatterns =
       map((pattern: string) => replaceAllPlaceholders(allowed, pattern)),
       flatten,
       uniq,
-      filter(complement(isFirstLetterConsonant))
-      // filter(includes(__, dictionary))
+      filter(complement(isFirstLetterConsonant)),
+      filter(includes(__, dictionary))
     )(patterns)

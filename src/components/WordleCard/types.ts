@@ -1,4 +1,4 @@
-import { Keys, KeyStyles } from '../CustomKeyboard/types'
+import { Keys } from '../CustomKeyboard/types'
 
 export interface ItemStyles {
   color?: string
@@ -8,7 +8,8 @@ export interface ItemStyles {
 export enum KeyState {
   Default,
   Partial,
-  Correct
+  Correct,
+  Excluded
 }
 
 export interface KeysWithState extends Keys {
@@ -22,3 +23,6 @@ export interface CardItem {
 }
 export type Card = CardItem[][]
 export type CardIndex = number[]
+
+export type Letter = number | number[] | null
+export type Letters = Record<string, Letter>

@@ -7,6 +7,16 @@ module.exports = {
     'react/static-property-placement': 0,
     'jsx-a11y/alt-text': 0,
     'react/jsx-props-no-spreading': 0,
-    'import/prefer-default-export': 0
+    'import/prefer-default-export': 0,
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.js', '**/*.spec.js'] }
+    ],
+    '@typescript-eslint/ban-ts-comment': [
+      'error',
+      { 'ts-ignore': 'allow-with-description',
+        minimumDescriptionLength: 10,
+      }
+    ]
   }
 }

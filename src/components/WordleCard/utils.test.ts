@@ -48,6 +48,7 @@ describe('src/components/WordleCard/utils', () => {
           ['', ''],
           ['', '']
         ]
+        // @ts-ignore Ignore for tests
         const result = SUT.updateCard(index, 'x')(card)
         expect(result).toEqual([
           ['', ''],
@@ -80,6 +81,48 @@ describe('src/components/WordleCard/utils', () => {
         ['', '', '', '', ''],
         ['', '', '', '', '']
       ])
+    })
+  })
+  describe('increaseCardIndex', () => {
+    it.each([
+      [
+        [0, 0],
+        [0, 1]
+      ],
+      [
+        [0, 4],
+        [1, 0]
+      ],
+      [
+        [6, 4],
+        [0, 0]
+      ]
+    ])('should correctly increase the card index', (index, expected) => {
+      const result = SUT.increaseCardIndex(index)
+      expect(result).toEqual(expected)
+    })
+  })
+  describe('decreaseCardIndex', () => {
+    it.each([
+      [
+        [0, 1],
+        [0, 0]
+      ],
+      [
+        [1, 0],
+        [0, 4]
+      ],
+      [
+        [0, 4],
+        [0, 3]
+      ],
+      [
+        [0, 0],
+        [0, 0]
+      ]
+    ])('should correctly decrease the card index', (index, expected) => {
+      const result = SUT.decreaseCardIndex(index)
+      expect(result).toEqual(expected)
     })
   })
 })

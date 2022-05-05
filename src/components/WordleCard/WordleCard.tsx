@@ -1,55 +1,91 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import CustomKeyboard from '../CustomKeyboard'
-import { initialCard } from './constants'
-import { Card, CardIndex, KeyState, KeysWithState } from './types'
+import { initialCard, initialLetters } from './constants'
+import { Card, CardIndex, KeyState, Letters } from './types'
 import {
+  decreaseCardIndex,
   getKeyStateStyles,
-  handleKeySelect,
+  increaseCardIndex,
   updateCard,
-  updateCardIndex,
   updateLetterState
 } from './utils'
 import styles from './WordleCard.module.scss'
 
-interface Props {}
-
-function WordleCard({}: Props) {
-  const [selected, setSelected] = useState<KeysWithState[]>([])
+function WordleCard() {
   const [card, setCard] = useState<Card>(initialCard)
+  const [letters, setLetters] = useState<Letters>(initialLetters)
   const [cardIndex, setCardIndex] = useState<CardIndex>([0, 0])
 
-  const handleSelect = useCallback(
+  const handleKeyPress = useCallback(
     (char: string) => {
-      setSelected(handleKeySelect(char))
-      setCard(updateCard(cardIndex, { char, state: KeyState.Partial }))
-      setCardIndex(updateCardIndex)
+      if (char === '⇐') {
+        const tempIndex = decreaseCardIndex(cardIndex)
+        setCard(updateCard(tempIndex, { char: '', state: KeyState.Default }))
+        setCardIndex(decreaseCardIndex)
+      } else {
+        setCard(updateCard(cardIndex, { char, state: KeyState.Default }))
+        setCardIndex(increaseCardIndex)
+      }
     },
     [cardIndex]
   )
 
+  const getLetterValue = (
+    state: KeyState,
+    currValue: Letters,
+    index: number
+  ) => {
+    console.log({ action: 'entry', currValue })
+    if (state === KeyState.Excluded) {
+      console.log({ action: 'is default', currValue })
+
+      return -1
+    }
+    if (state === KeyState.Correct) {
+      console.log({ action: 'is correct', currValue })
+
+      return index
+    }
+
+    if (state === KeyState.Default) {
+      console.log({ action: 'is correct', currValue })
+
+      return null
+    }
+
+    if (Array.isArray(currValue)) {
+      console.log({ action: 'is array', currValue })
+      return [...currValue, index]
+    }
+
+    console.log({ action: 'is just partial', currValue })
+    return [index]
+  }
+
   const handleSetKeyState = useCallback(
     (index: number[]) => {
       const key = card[index[0]][index[1]]
+      if (key.char === '') {
+        return
+      }
       const newState = updateLetterState(key.state || KeyState.Default)
       const newStyle = getKeyStateStyles(newState)
       setCard(
         updateCard(index, { char: key.char, state: newState, style: newStyle })
       )
+
+      const letter = key.char.toLowerCase()
+
+      const letterValue = getLetterValue(newState, letters[letter], index[1])
+      const newLetters = { ...letters, [letter]: letterValue }
+      setLetters(newLetters)
     },
-    [card]
+    [card, letters]
   )
 
-  // useEffect(() => {
-  //   setCardIndex(updateCardIndex)
-  // }, [card])
-
-  // useEffect(() => {
-  //   console.log({ card })
-  // }, [card])
-
-  // useEffect(() => {
-  //   console.log({ cardIndex })
-  // }, [cardIndex])
+  useEffect(() => {
+    console.log({ letters })
+  }, [letters])
 
   return (
     <div className={styles.container}>
@@ -88,7 +124,7 @@ function WordleCard({}: Props) {
           </div>
         ))}
       </div>
-      <CustomKeyboard selected={selected} onSelect={handleSelect} />
+      <CustomKeyboard selected={[]} onKeyPress={handleKeyPress} />
     </div>
   )
 }

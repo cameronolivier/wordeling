@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { keyboardLayout } from './constants'
 import styles from './CustomKeyboard.module.scss'
 import { Keys } from './types'
@@ -6,16 +6,15 @@ import { getKeyStyles } from './utils'
 
 interface Props {
   selected: Keys[]
-  onSelect: (key: string) => void
+  onKeyPress: (key: string) => void
 }
-function CustomKeyboard({ selected, onSelect }: Props) {
-  const handleSelect = useCallback(
+function CustomKeyboard({ selected, onKeyPress }: Props) {
+  const handleKeyPress = useCallback(
     (letter) => {
-      //   console.log(letter)
       //   console.log({ styles: getKeyStyles(letter, selected) })
-      onSelect(letter)
+      onKeyPress(letter)
     },
-    [onSelect]
+    [onKeyPress]
   )
 
   // useEffect(() => {
@@ -30,7 +29,7 @@ function CustomKeyboard({ selected, onSelect }: Props) {
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div
               key={letter}
-              onClick={() => handleSelect(letter)}
+              onClick={() => handleKeyPress(letter)}
               className={styles.key}
               style={getKeyStyles(letter, selected)}
             >
