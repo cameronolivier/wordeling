@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import CustomKeyboard from '../CustomKeyboard'
 import { initialCard, initialLetters } from './constants'
 import { Card, CardIndex, KeyState, Letters } from './types'
@@ -82,10 +82,6 @@ function WordleCard() {
     },
     [card, letters]
   )
-
-  useEffect(() => {
-    console.log({ letters })
-  }, [letters])
 
   return (
     <div className={styles.container}>

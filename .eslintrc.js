@@ -10,13 +10,18 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*.test.js', '**/*.spec.js'] }
+      {
+        devDependencies: [
+          '**/*.test.js',
+          '**/*.test.ts',
+          '**/*.test.tsx',
+          '**/*.spec.js'
+        ]
+      }
     ],
     '@typescript-eslint/ban-ts-comment': [
       'error',
-      { 'ts-ignore': 'allow-with-description',
-        minimumDescriptionLength: 10,
-      }
+      { 'ts-ignore': 'allow-with-description', minimumDescriptionLength: 10 }
     ]
   }
 }

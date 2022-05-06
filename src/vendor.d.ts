@@ -10,18 +10,23 @@ declare module 'ramda' {
   export function complement(...rest: any[]): any
   export function compose(...rest: any[]): any
   export function concat(...rest: any[]): any[]
+  export function cond(...rest: any[]): any
   export function curry(...rest: any[]): any
   export function equals(...rest: any[]): any
   export function evolve(...rest: any[]): any
   export function filter(...rest: any[]): any
   export function find(...rest: any[]): any
   export function flatten(...rest: any[]): any[]
+  export function forEach(...rest: any[]): any
+  export function forEachObjIndexed(...rest: any[]): any
+  export function fromPairs(...rest: any[]): any
   export function has(...rest: any[]): any
   export function head(...rest: any[]): any
   export function identity(...rest: any[]): any
   export function ifElse(...rest: any[]): any
   export function includes(...rest: any[]): any
   export function is(...rest: any[]): any
+  export function inc(...rest: any[]): any
   export function isEmpty(...rest: any[]): any
   export function isNil(...rest: any[]): any
   export function join(...rest: any[]): any
@@ -55,9 +60,14 @@ declare module 'ramda' {
   export function reduce(...rest: any[]): any
   export function reduceRight(...rest: any[]): any[]
   export function reject(...rest: any[]): any
+  export function reverse(...rest: any[]): any
   export function slice(...rest: any[]): any[]
+  export function split(...rest: any[]): any
+  export function sort(...rest: any[]): any[]
+  export function sum(...rest: any[]): any
   export function repeat(...rest: any[]): any[]
   export function replace(...rest: any[]): any
+  export function T(...rest: any[]): true
   export function tail(...rest: any[]): any[]
   export function tap(...rest: any[]): any[]
   export function toPairs(...rest: any[]): any
@@ -70,5 +80,6 @@ declare module 'ramda' {
   export function values(...rest: any[]): any
   export function view(...rest: any[]): any
   export function when(...rest: any[]): any
+  export function zip(...rest: any[]): any
   export function zipObj(...rest: any[]): any
 }

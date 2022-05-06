@@ -7,7 +7,21 @@ import {
   __,
   includes,
   filter,
-  complement
+  complement,
+  has,
+  prop,
+  inc,
+  always,
+  toPairs,
+  sort,
+  forEach,
+  split,
+  cond,
+  T,
+  fromPairs,
+  sum,
+  append,
+  curry
 } from 'ramda'
 
 export const replacePlaceholderWithAllowedChar = (
@@ -35,7 +49,7 @@ export const replaceAllPlaceholders = (
 }
 
 export const isFirstLetterConsonant = (word: string): boolean =>
-  word.split('').filter((x) => x === 'A').length > 1
+  word.split('').filter((char) => char === 'A').length > 1
 
 export const createWordsFromPatterns =
   (dictionary: string[]) => (allowed: string[], patterns: string[]) =>
@@ -46,3 +60,47 @@ export const createWordsFromPatterns =
       filter(complement(isFirstLetterConsonant)),
       filter(includes(__, dictionary))
     )(patterns)
+
+export const getLetterScores = (exclude: string[], words: string[]) => {
+  const letters: Record<string, number> = {}
+  forEach(
+    pipe(
+      split(''),
+      forEach((letter: string) => {
+        letters[letter] = cond([
+          [always(includes(letter, exclude)), always(0)],
+          [has(letter), pipe(prop(letter), inc)],
+          [T, always(1)]
+        ])(letters)
+      })
+    )
+  )(words)
+  return letters
+}
+
+export const sortDescendingTuple = (a: [string, number], b: [string, number]) =>
+  b[1] - a[1]
+
+export const getLetterScoresSorted = (exclude: string[], words: string[]) =>
+  pipe(getLetterScores, toPairs, sort(sortDescendingTuple))(exclude, words)
+
+export const sumWord = curry(
+  (letterScores: Record<string, number>, words: string[]) =>
+    pipe(
+      map((word: string) =>
+        pipe(
+          split(''),
+          map(prop(__, letterScores)),
+          sum,
+          append(__, [word])
+        )(word)
+      ),
+      fromPairs
+    )(words)
+)
+
+export const getWordScores = (exclude: string[], words: string[]) =>
+  pipe(getLetterScores, sumWord(__, words))(exclude, words)
+
+export const getWordScoresSorted = (exclude: string[], words: string[]) =>
+  pipe(getWordScores, toPairs, sort(sortDescendingTuple))(exclude, words)

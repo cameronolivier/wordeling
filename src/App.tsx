@@ -8,18 +8,8 @@ import { dictionary } from './constants'
 import SelectRemovedKeyboard from './components/SelectRemovedKeyboard'
 import { createWordsFromPatterns } from './utils'
 
-const allowed = ['Q', 'W', 'D', 'F', 'G', 'J', 'K', 'L', 'Z', 'X', 'V', 'M']
-const patterns = [
-  'SEYT*',
-  'SE*TY',
-  'ESYT*',
-  'ES*TY',
-  'ETSY*',
-  'ETS*Y',
-  'E*STY',
-  'YEST*',
-  '*ESTY'
-]
+const allowed = ['a']
+const patterns = ['R*ISE']
 
 const words = createWordsFromPatterns(flatten([dictionary]))(allowed, patterns)
 function App() {

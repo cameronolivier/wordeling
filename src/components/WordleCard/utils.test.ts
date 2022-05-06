@@ -39,50 +39,50 @@ describe('src/components/WordleCard/utils', () => {
       }
     )
   })
-  describe('updateCard', () => {
-    it.each([[[10, 0]], [[0, 10]]])(
-      'should return the card if the index sits outside the matrix values',
-      (index) => {
-        // given ... a card matrix
-        const card = [
-          ['', ''],
-          ['', '']
-        ]
-        // @ts-ignore Ignore for tests
-        const result = SUT.updateCard(index, 'x')(card)
-        expect(result).toEqual([
-          ['', ''],
-          ['', '']
-        ])
-      }
-    )
-    it('should insert the given value into the correct position in the card', () => {
-      // given ... a card matrix
-      const card = [
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', '']
-      ]
-
-      // when ...
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore -- no need to properly type the card for the test
-      const result = SUT.updateCard([2, 2], 'x')(card)
-
-      // then ...
-      expect(result).toEqual([
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', { char: 'x', state: 1 }, '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', '']
-      ])
-    })
-  })
+  // describe('updateCard', () => {
+  //   it.each([[[10, 0]], [[0, 10]]])(
+  //     'should return the card if the index sits outside the matrix values',
+  //     (index) => {
+  //       // given ... a card matrix
+  //       const card = [
+  //         ['', ''],
+  //         ['', '']
+  //       ]
+  //       // @ts-ignore Ignore for tests
+  //       const result = SUT.updateCard(index, 'x')(card)
+  //       expect(result).toEqual([
+  //         ['', ''],
+  //         ['', '']
+  //       ])
+  //     }
+  //   )
+  //   it('should insert the given value into the correct position in the card', () => {
+  //     // given ... a card matrix
+  //     const card = [
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', '']
+  //     ]
+  //
+  //     // when ...
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     // @ts-ignore -- no need to properly type the card for the test
+  //     const result = SUT.updateCard([2, 2], 'x')(card)
+  //
+  //     // then ...
+  //     expect(result).toEqual([
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', { char: 'x', state: 1 }, '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', ''],
+  //       ['', '', '', '', '']
+  //     ])
+  //   })
+  // })
   describe('increaseCardIndex', () => {
     it.each([
       [
