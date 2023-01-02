@@ -21,8 +21,11 @@ import {
   fromPairs,
   sum,
   append,
-  curry
+  curry,
+  without,
+  concat
 } from 'ramda'
+import { consonants, vowels } from './constants'
 
 export const replacePlaceholderWithAllowedChar = (
   allowed: string[],
@@ -51,10 +54,17 @@ export const replaceAllPlaceholders = (
 export const isFirstLetterConsonant = (word: string): boolean =>
   word.split('').filter((char) => char === 'A').length > 1
 
+export const buildAlphabet = () => concat(consonants, vowels)
+
+export const getAllowed = (disallowed: string[]) =>
+  without(disallowed, buildAlphabet())
+
 export const createWordsFromPatterns =
-  (dictionary: string[]) => (allowed: string[], patterns: string[]) =>
+  (dictionary: string[]) => (disallowed: string[], patterns: string[]) =>
     pipe(
-      map((pattern: string) => replaceAllPlaceholders(allowed, pattern)),
+      map((pattern: string) =>
+        replaceAllPlaceholders(getAllowed(disallowed), pattern)
+      ),
       flatten,
       uniq,
       filter(complement(isFirstLetterConsonant)),
